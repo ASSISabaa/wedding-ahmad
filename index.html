@@ -1,0 +1,684 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>دعوة — احمد وسارة</title>
+<!-- ✅ FIX: Proper Google Fonts URL without extra params -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Cormorant+Garamond:ital,wght@0,300;1,300&family=Montserrat:wght@300;400;500&family=Tajawal:wght@300;400;500;700&display=swap" rel="stylesheet">
+
+<style>
+/* ✅ FIX: System font fallbacks so page works even if Google Fonts fail */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg:      #f8f5f0;
+  --bg2:     #f0ebe3;
+  --bg3:     #e8e0d5;
+  --black:   #0e0e0e;
+  --soft:    #4a4a4a;
+  --muted:   #9a9a9a;
+  --border:  rgba(14,14,14,0.08);
+  --border2: rgba(14,14,14,0.16);
+  --border3: rgba(14,14,14,0.32);
+  /* ✅ FIX: Font stacks with safe fallbacks */
+  --font-display: 'Playfair Display', Georgia, 'Times New Roman', serif;
+  --font-ar:      'Tajawal', 'Segoe UI', Tahoma, Arial, sans-serif;
+  --font-latin:   'Montserrat', 'Trebuchet MS', Arial, sans-serif;
+  --font-italic:  'Cormorant Garamond', Georgia, serif;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--black);
+  font-family: var(--font-ar);
+  overflow-x: hidden;
+}
+
+/* ══════════════════ LOADER ══════════════════ */
+#loader {
+  position: fixed; inset: 0;
+  background: var(--bg);
+  z-index: 9999;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  gap: 20px;
+  transition: opacity 0.9s ease, visibility 0.9s ease;
+}
+#loader.out { opacity: 0; visibility: hidden; pointer-events: none; }
+.ld-logo {
+  font-family: var(--font-display);
+  font-size: 38px; letter-spacing: 10px;
+  color: var(--black); direction: ltr;
+  opacity: 0; animation: fi 0.7s ease 0.3s forwards;
+}
+.ld-bar-wrap { width: 120px; height: 1px; background: var(--border2); overflow: hidden; }
+.ld-bar { height: 100%; width: 0; background: var(--black); animation: bar 1.1s ease 0.7s forwards; }
+.ld-sub {
+  font-family: var(--font-ar);
+  font-size: 12px; letter-spacing: 4px; font-weight: 300;
+  color: var(--muted);
+  opacity: 0; animation: fi 0.6s ease 1.4s forwards;
+}
+@keyframes fi  { to { opacity: 1; } }
+@keyframes bar { to { width: 100%; } }
+@keyframes up  { from{opacity:0;transform:translateY(22px)} to{opacity:1;transform:translateY(0)} }
+
+/* ══════════════════ NAVBAR ══════════════════ */
+.navbar {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 16px 36px;
+  background: rgba(248,245,240,0.94);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px); /* ✅ FIX: Safari support */
+  border-bottom: 1px solid var(--border);
+  opacity: 0; animation: fi 0.6s ease 2.1s forwards;
+}
+.nav-brand {
+  font-family: var(--font-display);
+  font-size: 15px; letter-spacing: 5px; direction: ltr;
+  color: var(--black);
+}
+.nav-center {
+  font-family: var(--font-ar);
+  font-size: 12px; font-weight: 300;
+  color: var(--muted);
+}
+.nav-date {
+  font-family: var(--font-latin);
+  font-size: 9px; letter-spacing: 3px; direction: ltr;
+  color: var(--muted);
+}
+
+/* ══════════════════ HERO ══════════════════ */
+.hero {
+  min-height: 100vh;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  text-align: center;
+  padding: 140px 32px 100px;
+  position: relative;
+  border-bottom: 1px solid var(--border2);
+  overflow: hidden;
+}
+.hero::before {
+  content: '';
+  position: absolute; inset: 0;
+  background-image: radial-gradient(circle, rgba(14,14,14,0.04) 1px, transparent 1px);
+  background-size: 28px 28px;
+  pointer-events: none;
+}
+
+.c { position: absolute; border-color: var(--border2); border-style: solid; }
+.c-tl { top:44px; right:44px; width:52px; height:52px; border-width:1px 1px 0 0; }
+.c-tr { top:44px; left:44px;  width:52px; height:52px; border-width:1px 0 0 1px; }
+.c-bl { bottom:100px; right:44px; width:52px; height:52px; border-width:0 1px 1px 0; }
+.c-br { bottom:100px; left:44px;  width:52px; height:52px; border-width:0 0 1px 1px; }
+
+.hero-tag {
+  font-family: var(--font-latin);
+  font-size: 8px; letter-spacing: 7px; direction: ltr;
+  color: var(--muted);
+  margin-bottom: 44px;
+  opacity: 0; animation: up 0.9s ease 1.9s forwards;
+}
+.hero-welcome {
+  font-family: var(--font-ar);
+  font-weight: 300; font-size: clamp(16px,3.5vw,22px);
+  color: var(--soft);
+  margin-bottom: 16px;
+  opacity: 0; animation: up 0.9s ease 2.05s forwards;
+}
+.hero-name {
+  font-family: var(--font-display);
+  font-size: clamp(56px,14vw,110px);
+  font-weight: 700; color: var(--black);
+  line-height: 0.88; letter-spacing: -2px;
+  margin-bottom: 18px;
+  opacity: 0; animation: up 0.9s ease 2.15s forwards;
+}
+.hero-and {
+  font-family: var(--font-italic);
+  font-style: italic; font-size: clamp(22px,5vw,40px);
+  color: var(--muted);
+  margin-bottom: 18px;
+  opacity: 0; animation: up 0.9s ease 2.22s forwards;
+}
+.hero-name2 {
+  font-family: var(--font-display);
+  font-size: clamp(38px,9vw,72px);
+  font-weight: 400; font-style: italic;
+  color: var(--soft);
+  margin-bottom: 60px;
+  opacity: 0; animation: up 0.9s ease 2.28s forwards;
+}
+
+.divider {
+  display: flex; align-items: center; gap: 18px;
+  margin-bottom: 50px;
+  opacity: 0; animation: up 0.9s ease 2.38s forwards;
+}
+.divider-line { flex:1; max-width:70px; height:1px; background:var(--border3); }
+.divider-dot  { width:5px; height:5px; background:var(--black); transform:rotate(45deg); }
+
+.hero-event-date {
+  font-family: var(--font-display);
+  font-size: clamp(18px,4vw,28px);
+  color: var(--black); letter-spacing: 3px; direction: ltr;
+  margin-bottom: 8px;
+  opacity: 0; animation: up 0.9s ease 2.45s forwards;
+}
+.hero-event-loc {
+  font-family: var(--font-ar);
+  font-weight: 300; font-size: clamp(14px,3vw,18px);
+  color: var(--muted);
+  opacity: 0; animation: up 0.9s ease 2.52s forwards;
+}
+
+.scroll-hint {
+  position: absolute; bottom: 40px; left: 50%;
+  transform: translateX(-50%);
+  display: flex; flex-direction: column; align-items: center; gap: 8px;
+  opacity: 0; animation: fi 0.8s ease 3.1s forwards;
+}
+.scroll-hint span {
+  font-family: var(--font-latin);
+  font-size: 7px; letter-spacing: 4px; color: var(--muted);
+}
+.sh-line { width:1px; height:30px; background:var(--muted); opacity:0.35; animation: blink 2s infinite; }
+@keyframes blink { 0%,100%{opacity:0.15} 50%{opacity:0.5} }
+
+/* ══════════════════ COUNTDOWN ══════════════════ */
+.countdown {
+  background: var(--bg2);
+  padding: 80px 24px;
+  text-align: center;
+  border-bottom: 1px solid var(--border);
+}
+.cd-top {
+  font-family: var(--font-latin);
+  font-size: 8px; letter-spacing: 6px; direction: ltr;
+  color: var(--muted); margin-bottom: 52px;
+}
+.cd-row { display:flex; justify-content:center; max-width:480px; margin:0 auto; }
+.cd-bl {
+  flex:1; padding:28px 8px; text-align:center;
+  border-left: 1px solid var(--border2);
+}
+.cd-bl:last-child { border-right: 1px solid var(--border2); }
+.cd-n {
+  font-family: var(--font-display);
+  font-size: clamp(36px,9vw,64px);
+  color: var(--black); line-height:1; margin-bottom:10px;
+}
+.cd-u {
+  font-family: var(--font-ar);
+  font-size: 11px; font-weight:300;
+  color: var(--muted);
+}
+
+/* ══════════════════ DETAILS ══════════════════ */
+.details {
+  padding: 96px 24px;
+  max-width: 860px; margin: 0 auto;
+  border-bottom: 1px solid var(--border);
+}
+.sh { text-align:center; margin-bottom:60px; }
+.sh-ey {
+  font-family: var(--font-latin);
+  font-size:8px; letter-spacing:5px; direction:ltr;
+  color:var(--muted); display:block; margin-bottom:14px;
+}
+.sh-ti {
+  font-family: var(--font-display);
+  font-size:clamp(26px,5vw,40px); font-weight:400;
+  color:var(--black);
+}
+.dgrid { display:grid; grid-template-columns:1fr 1fr; gap:2px; background:var(--border); }
+.dc {
+  background:var(--bg); padding:40px 32px;
+  transition: background 0.3s;
+}
+.dc:hover { background:var(--bg3); }
+.dc.full { grid-column:1/-1; }
+.dc-n { font-family: var(--font-latin); font-size:9px; letter-spacing:2px; color:var(--muted); margin-bottom:22px; display:block; direction:ltr; }
+.dc-l { font-family: var(--font-latin); font-size:8px; letter-spacing:4px; color:var(--muted); margin-bottom:10px; direction:ltr; }
+.dc-v { font-family: var(--font-display); font-size:clamp(20px,4vw,28px); color:var(--black); margin-bottom:6px; }
+.dc-s { font-family: var(--font-ar); font-weight:300; font-size:14px; color:var(--soft); }
+
+/* ══════════════════ RSVP ══════════════════ */
+.rsvp-section {
+  background: var(--bg3);
+  padding: 96px 24px;
+}
+.rsvp-inner { max-width:560px; margin:0 auto; text-align:center; }
+.rsvp-ey {
+  font-family: var(--font-latin);
+  font-size:8px; letter-spacing:6px; direction:ltr;
+  color:var(--muted); margin-bottom:20px;
+}
+.rsvp-title {
+  font-family: var(--font-display);
+  font-size:clamp(32px,8vw,58px); font-weight:400;
+  color:var(--black); margin-bottom:8px; letter-spacing:2px;
+}
+.rsvp-sub {
+  font-family: var(--font-ar); font-weight:300;
+  font-size:clamp(14px,3vw,18px);
+  color:var(--soft); margin-bottom:52px;
+}
+
+.rsvp-form { display:flex; flex-direction:column; gap:12px; }
+.rf-input {
+  background: var(--bg);
+  border: 1px solid var(--border2);
+  padding: 16px 20px;
+  font-family: var(--font-ar); font-size:16px; font-weight:300;
+  color:var(--black); outline:none; width:100%; text-align:center;
+  transition: border-color 0.2s;
+  /* ✅ FIX: Mobile zoom prevention */
+  font-size: max(16px, 1em);
+}
+.rf-input::placeholder { color:var(--muted); }
+.rf-input:focus { border-color:var(--border3); }
+.rf-select {
+  background: var(--bg);
+  border: 1px solid var(--border2);
+  padding: 16px 20px;
+  font-family: var(--font-ar); font-weight:300;
+  color:var(--soft); outline:none; width:100%;
+  cursor:pointer; appearance:none; -webkit-appearance:none;
+  text-align:center;
+  font-size: max(16px, 1em); /* ✅ FIX: Prevents iOS zoom on focus */
+}
+.rf-select option { background:var(--bg); color:var(--black); }
+.rf-btn {
+  background:var(--black); color:#fff;
+  border:none; padding:18px 40px;
+  font-family: var(--font-ar); font-size:14px; font-weight:500;
+  letter-spacing:3px; cursor:pointer;
+  transition:opacity 0.2s; margin-top:8px;
+  /* ✅ FIX: Touch target size for mobile */
+  min-height: 52px;
+  -webkit-tap-highlight-color: transparent;
+}
+.rf-btn:hover { opacity:0.8; }
+.rf-btn:active { opacity:0.6; }
+
+.rsvp-done {
+  display:none; padding:32px;
+  border:1px solid var(--border2);
+  background: var(--bg);
+}
+.rsvp-done.show { display:block; }
+.rsvp-done p {
+  font-family: var(--font-display); font-style:italic;
+  font-size:clamp(18px,4vw,26px); color:var(--black);
+  line-height:1.5;
+}
+
+/* ══════════════════ MAP ══════════════════ */
+.map-section { background:var(--bg2); padding:80px 24px; border-bottom:1px solid var(--border); }
+.map-inner { max-width:860px; margin:0 auto; }
+.map-head { margin-bottom:36px; }
+.map-ey { font-family: var(--font-latin); font-size:8px; letter-spacing:5px; color:var(--muted); display:block; margin-bottom:10px; direction:ltr; }
+.map-ti { font-family: var(--font-display); font-size:clamp(24px,5vw,38px); font-weight:400; color:var(--black); }
+
+.map-visual {
+  display:block; text-decoration:none; cursor:pointer;
+  border:1px solid var(--border2); overflow:hidden;
+  position:relative; height:300px;
+  background:#e8dfd4; margin-bottom:16px;
+  transition:opacity 0.2s;
+  -webkit-tap-highlight-color: transparent; /* ✅ FIX: Remove tap flash on mobile */
+}
+.map-visual:hover { opacity:0.92; }
+.map-grid-bg {
+  position:absolute; inset:0;
+  background-image:
+    linear-gradient(rgba(42,31,20,0.07) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(42,31,20,0.07) 1px,transparent 1px),
+    linear-gradient(rgba(42,31,20,0.03) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(42,31,20,0.03) 1px,transparent 1px);
+  background-size:80px 80px,80px 80px,20px 20px,20px 20px;
+}
+.map-roads {
+  position:absolute; inset:0;
+  background:
+    linear-gradient(0deg,transparent 47%,rgba(255,255,255,0.6) 47%,rgba(255,255,255,0.6) 53%,transparent 53%),
+    linear-gradient(90deg,transparent 30%,rgba(255,255,255,0.5) 30%,rgba(255,255,255,0.5) 34%,transparent 34%),
+    linear-gradient(65deg,transparent 15%,rgba(255,255,255,0.35) 15%,rgba(255,255,255,0.35) 18%,transparent 18%);
+}
+.map-pin-group { position:absolute; inset:0; display:flex; align-items:center; justify-content:center; z-index:2; }
+.map-pin-wrap { display:flex; flex-direction:column; align-items:center; animation:pinBounce 2.2s ease-in-out infinite; }
+@keyframes pinBounce { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-8px)} }
+.map-pin-outer { width:38px; height:38px; border-radius:50% 50% 50% 0; transform:rotate(-45deg); background:#2a1f14; display:flex; align-items:center; justify-content:center; }
+.map-pin-inner { width:14px; height:14px; border-radius:50%; background:var(--bg); }
+.map-pin-shadow { width:12px; height:4px; border-radius:50%; background:rgba(42,31,20,0.2); margin-top:4px; }
+.map-chip {
+  position:absolute; bottom:20px; left:50%; transform:translateX(-50%);
+  background:var(--bg); border:1px solid var(--border2);
+  padding:8px 16px; display:flex; align-items:center; gap:8px;
+  white-space:nowrap; font-family: var(--font-ar); font-size:12px; font-weight:400;
+  color:var(--black); z-index:3;
+}
+.map-tap {
+  position:absolute; top:14px; left:50%; transform:translateX(-50%);
+  background:rgba(42,31,20,0.7); color:var(--bg);
+  font-family: var(--font-ar); font-size:11px;
+  padding:6px 18px; white-space:nowrap; z-index:3;
+}
+
+.map-btns { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+.mbtn {
+  display:flex; align-items:center; gap:10px;
+  padding:16px 20px; text-decoration:none;
+  font-family: var(--font-ar); font-size:13px; font-weight:400;
+  border:1px solid var(--border2); transition:background 0.2s;
+  min-height:52px; /* ✅ FIX: Touch target */
+  -webkit-tap-highlight-color: transparent;
+}
+.mbtn span:nth-child(2) { flex:1; }
+.mbtn-arrow { opacity:0.4; font-size:14px; flex:0 !important; }
+.mbtn-waze { background:var(--bg); color:var(--black); }
+.mbtn-waze:hover { background:var(--bg3); }
+.mbtn-google { background:#2a1f14; color:#f5ede0; border-color:#2a1f14; }
+.mbtn-google:hover { opacity:0.85; }
+
+/* ══════════════════ CLOSING ══════════════════ */
+.closing {
+  background:var(--bg); padding:96px 32px;
+  text-align:center;
+  border-top:1px solid var(--border2);
+}
+.cl-orn { font-size:10px; letter-spacing:10px; color:var(--muted); margin-bottom:40px; }
+.cl-t {
+  font-family: var(--font-display);
+  font-size:clamp(28px,7vw,60px); font-weight:400;
+  color:var(--black); margin-bottom:16px; line-height:1.1;
+}
+
+/* ══════════════════ FOOTER ══════════════════ */
+.site-footer {
+  background:var(--bg2);
+  padding:28px 32px;
+  text-align:center;
+  border-top:1px solid var(--border2);
+}
+.ft-cr {
+  font-family: var(--font-latin);
+  font-size:9px; letter-spacing:3px; direction:ltr;
+  color:var(--muted);
+}
+.ft-cr strong { color:var(--soft); font-weight:400; }
+
+/* ══════════════════ REVEAL ══════════════════ */
+.reveal { opacity:0; transform:translateY(20px); transition:opacity 0.7s ease, transform 0.7s ease; }
+.reveal.visible { opacity:1; transform:translateY(0); }
+
+/* ══════════════════ RESPONSIVE ══════════════════ */
+@media (max-width:580px) {
+  .c { width:28px; height:28px; }
+  .c-tl,.c-tr { top:24px; }
+  .c-tl,.c-bl { right:24px; }
+  .c-tr,.c-br { left:24px; }
+  .c-bl,.c-br { bottom:80px; }
+  .dgrid { grid-template-columns:1fr; }
+  .dc.full { grid-column:1; }
+  .navbar { padding:14px 18px; }
+  .nav-center { display:none; }
+  .map-btns { grid-template-columns:1fr; }
+}
+</style>
+</head>
+<body>
+
+<!-- LOADER -->
+<div id="loader">
+  <div class="ld-logo">✦</div>
+  <div class="ld-bar-wrap"><div class="ld-bar"></div></div>
+  <div class="ld-sub">دعوة خاصة</div>
+</div>
+
+<!-- NAVBAR -->
+<nav class="navbar">
+  <div class="nav-brand">EVENT</div>
+  <div class="nav-center">دعوة خاصة</div>
+  <div class="nav-date">14.06.2026</div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="c c-tl"></div><div class="c c-tr"></div>
+  <div class="c c-bl"></div><div class="c c-br"></div>
+
+  <p class="hero-tag">YOU ARE CORDIALLY INVITED</p>
+  <p class="hero-welcome">يسعدنا دعوتكم لحضور</p>
+  <h1 class="hero-name">احمد</h1>
+  <p class="hero-and">&amp;</p>
+  <p class="hero-name2">سارة</p>
+
+  <div class="divider">
+    <div class="divider-line"></div>
+    <div class="divider-dot"></div>
+    <div class="divider-line"></div>
+  </div>
+
+  <div class="hero-event-date">14 . 06 . 2026</div>
+  <div class="hero-event-loc">قاعة الأسيل — كفر قاسم</div>
+
+  <div class="scroll-hint">
+    <span>SCROLL</span>
+    <div class="sh-line"></div>
+  </div>
+</section>
+
+<!-- COUNTDOWN -->
+<div class="countdown">
+  <p class="cd-top reveal">TIME REMAINING</p>
+  <div class="cd-row reveal">
+    <div class="cd-bl"><div class="cd-n" id="cd-d">00</div><div class="cd-u">يوم</div></div>
+    <div class="cd-bl"><div class="cd-n" id="cd-h">00</div><div class="cd-u">ساعة</div></div>
+    <div class="cd-bl"><div class="cd-n" id="cd-m">00</div><div class="cd-u">دقيقة</div></div>
+    <div class="cd-bl"><div class="cd-n" id="cd-s">00</div><div class="cd-u">ثانية</div></div>
+  </div>
+</div>
+
+<!-- DETAILS -->
+<section class="details">
+  <div class="sh">
+    <span class="sh-ey reveal">EVENT DETAILS</span>
+    <h2 class="sh-ti reveal">تفاصيل المناسبة</h2>
+  </div>
+  <div class="dgrid">
+    <div class="dc reveal">
+      <span class="dc-n">01</span>
+      <div class="dc-l">DATE</div>
+      <div class="dc-v">الأحد 14 يونيو</div>
+      <div class="dc-s">Sunday, 14 June 2026</div>
+    </div>
+    <div class="dc reveal">
+      <span class="dc-n">02</span>
+      <div class="dc-l">TIME</div>
+      <div class="dc-v">19:00 مساءً</div>
+      <div class="dc-s">Doors open at 7:00 PM</div>
+    </div>
+    <div class="dc full reveal">
+      <span class="dc-n">03</span>
+      <div class="dc-l">VENUE</div>
+      <div class="dc-v">قاعة الأسيل</div>
+      <div class="dc-s">كفر قاسم — Kfar Qasim</div>
+    </div>
+  </div>
+</section>
+
+<!-- MAP -->
+<section class="map-section">
+  <div class="map-inner">
+    <div class="map-head reveal">
+      <span class="map-ey">LOCATION</span>
+      <h2 class="map-ti">كيف تصلنا</h2>
+    </div>
+
+    <a href="https://maps.google.com/?q=%D9%82%D8%A7%D8%B9%D8%A9+%D8%A7%D9%84%D8%A3%D8%B3%D9%8A%D9%84+%D9%83%D9%81%D8%B1+%D9%82%D8%A7%D8%B3%D9%85" target="_blank" rel="noopener" class="map-visual reveal">
+      <div class="map-grid-bg"></div>
+      <div class="map-roads"></div>
+      <div class="map-pin-group">
+        <div class="map-pin-wrap">
+          <div class="map-pin-outer"><div class="map-pin-inner"></div></div>
+          <div class="map-pin-shadow"></div>
+        </div>
+      </div>
+      <div class="map-chip">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" style="flex-shrink:0"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z" fill="#2a1f14"/><circle cx="12" cy="9" r="2.5" fill="white"/></svg>
+        <span>قاعة الأسيل — كفر قاسم</span>
+      </div>
+      <div class="map-tap">اضغط لفتح الخريطة</div>
+    </a>
+
+    <div class="map-btns reveal">
+      <a href="https://waze.com/ul?q=%D9%82%D8%A7%D8%B9%D8%A9+%D8%A7%D9%84%D8%A3%D8%B3%D9%8A%D9%84+%D9%83%D9%81%D8%B1+%D9%82%D8%A7%D8%B3%D9%85&navigate=yes" target="_blank" rel="noopener" class="mbtn mbtn-waze">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" style="flex-shrink:0"><path d="M12 2C7.03 2 3 5.8 3 10.5c0 2.8 1.4 5.3 3.6 6.9L7 21l3.5-1.2c.5.1 1 .2 1.5.2 4.97 0 9-3.8 9-8.5S16.97 2 12 2z" fill="currentColor"/><circle cx="9" cy="11" r="1.2" fill="white"/><circle cx="15" cy="11" r="1.2" fill="white"/><path d="M9.5 14c.8.8 4.2.8 5 0" stroke="white" stroke-width="1.2" stroke-linecap="round" fill="none"/></svg>
+        <span>افتح في Waze</span>
+        <span class="mbtn-arrow">→</span>
+      </a>
+      <a href="https://maps.google.com/?q=%D9%82%D8%A7%D8%B9%D8%A9+%D8%A7%D9%84%D8%A3%D8%B3%D9%8A%D9%84+%D9%83%D9%81%D8%B1+%D9%82%D8%A7%D8%B3%D9%85" target="_blank" rel="noopener" class="mbtn mbtn-google">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" style="flex-shrink:0"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z" fill="currentColor"/><circle cx="12" cy="9" r="2.5" fill="white"/></svg>
+        <span>افتح في Google Maps</span>
+        <span class="mbtn-arrow">→</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- RSVP -->
+<section class="rsvp-section" id="rsvp">
+  <div class="rsvp-inner">
+    <p class="rsvp-ey reveal">KINDLY CONFIRM YOUR ATTENDANCE</p>
+    <h2 class="rsvp-title reveal">تأكيد الحضور</h2>
+    <p class="rsvp-sub reveal">نرجو إبلاغنا بحضوركم مسبقاً</p>
+
+    <div class="rsvp-form reveal" id="rsvp-form">
+      <input class="rf-input" type="text" id="r-name" placeholder="الاسم الكامل" autocomplete="name" />
+      <input class="rf-input" type="tel"  id="r-phone" placeholder="رقم الهاتف" autocomplete="tel" />
+      <select class="rf-select" id="r-guests">
+        <option value="">عدد الحضور</option>
+        <option value="1">1 شخص</option>
+        <option value="2">2 أشخاص</option>
+        <option value="3">3 أشخاص</option>
+        <option value="4">4 أشخاص</option>
+        <option value="5+">5 فأكثر</option>
+      </select>
+      <select class="rf-select" id="r-confirm">
+        <option value="">هل ستحضرون؟</option>
+        <option value="yes">✓ نعم، سنحضر بكل سرور</option>
+        <option value="no">✗ للأسف لن نتمكن من الحضور</option>
+      </select>
+      <button class="rf-btn" id="rsvp-btn" onclick="doRSVP()">تأكيد الحضور &nbsp;→</button>
+    </div>
+
+    <div class="rsvp-done" id="rsvp-done">
+      <p>شكراً جزيلاً 🤍<br>نتطلع لرؤيتكم في هذه الليلة المميزة</p>
+    </div>
+  </div>
+</section>
+
+<!-- CLOSING -->
+<section class="closing">
+  <div class="cl-orn">✦ &nbsp; ✦ &nbsp; ✦</div>
+  <h2 class="cl-t reveal">نرحب بكم<br>في فرحتنا</h2>
+</section>
+
+<!-- FOOTER -->
+<footer class="site-footer">
+  <div class="ft-cr">
+    Designed by &nbsp;<strong>Hekayet_logic | حكاية لوجيك</strong>
+  </div>
+</footer>
+
+<script>
+/* ══ LOADER ══ */
+window.addEventListener('load', function() {
+  setTimeout(function() {
+    document.getElementById('loader').classList.add('out');
+  }, 1200);
+});
+
+/* ══ COUNTDOWN ══ */
+var evDate = new Date('2026-06-14T19:00:00');
+
+function tick() {
+  var now = new Date();
+  var diff = evDate - now;
+  if (diff <= 0) {
+    ['cd-d','cd-h','cd-m','cd-s'].forEach(function(id) {
+      document.getElementById(id).textContent = '00';
+    });
+    return;
+  }
+  var d = Math.floor(diff / 86400000);
+  var h = Math.floor((diff % 86400000) / 3600000);
+  var m = Math.floor((diff % 3600000) / 60000);
+  var s = Math.floor((diff % 60000) / 1000);
+  document.getElementById('cd-d').textContent = String(d).padStart(2,'0');
+  document.getElementById('cd-h').textContent = String(h).padStart(2,'0');
+  document.getElementById('cd-m').textContent = String(m).padStart(2,'0');
+  document.getElementById('cd-s').textContent = String(s).padStart(2,'0');
+}
+tick();
+setInterval(tick, 1000);
+
+/* ══ RSVP ══ */
+function doRSVP() {
+  var name    = document.getElementById('r-name').value.trim();
+  var phone   = document.getElementById('r-phone').value.trim();
+  var guests  = document.getElementById('r-guests').value;
+  var confirm = document.getElementById('r-confirm').value;
+
+  if (!name || !guests || !confirm) {
+    alert('يرجى ملء جميع الحقول');
+    return;
+  }
+
+  /* ✅ WhatsApp fallback — sends RSVP to your number */
+  var msg = 'تأكيد حضور 🤍\n'
+    + 'الاسم: ' + name + '\n'
+    + 'الهاتف: ' + phone + '\n'
+    + 'عدد الحضور: ' + guests + '\n'
+    + 'الحضور: ' + (confirm === 'yes' ? 'نعم ✓' : 'لا ✗');
+
+  /* ✅ Open WhatsApp with the RSVP info — change 972XXXXXXXXX to your number */
+  var waUrl = 'https://wa.me/972XXXXXXXXX?text=' + encodeURIComponent(msg);
+  window.open(waUrl, '_blank');
+
+  document.getElementById('rsvp-form').style.display = 'none';
+  document.getElementById('rsvp-done').classList.add('show');
+}
+
+/* ══ SCROLL REVEAL ══ */
+// ✅ FIX: Check for IntersectionObserver support first
+if ('IntersectionObserver' in window) {
+  var obs = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.reveal').forEach(function(el) {
+    obs.observe(el);
+  });
+} else {
+  // ✅ FIX: Fallback for old browsers — show everything immediately
+  document.querySelectorAll('.reveal').forEach(function(el) {
+    el.classList.add('visible');
+  });
+}
+</script>
+</body>
+</html>
